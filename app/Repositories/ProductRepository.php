@@ -19,4 +19,8 @@ class ProductRepository
         return $this->model->with('category')->get();
     }
 
+    public function delete(Product $product) : bool
+    {
+        return $product->delete();
+    }
 }
