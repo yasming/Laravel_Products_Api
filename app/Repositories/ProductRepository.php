@@ -19,6 +19,11 @@ class ProductRepository
         return $this->model->with('category')->get();
     }
 
+    public function create(array $data) : Product
+    {
+        return $this->model->create($data);
+    }
+
     public function delete(Product $product) : bool
     {
         return $product->delete();
