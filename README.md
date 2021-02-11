@@ -50,7 +50,7 @@ php artisan migrate --seed
 ```
 
 ```
-Default user:
+Default user for auth:
 
 email: email@example.com
 password: password
