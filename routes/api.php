@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Product\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['as' => 'api.'], function(){
-    Route::resource('products', ProductController::class)->except(['create','edit']);
+    Route::post('/login', [LoginController::class,'authenticate'])->name('login');
+
+    Route::group(['middleware' => ['jwt.auth']], function(){
+        Route::resource('products', ProductController::class)->except(['create','edit']);
+    });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});

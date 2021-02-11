@@ -8,17 +8,19 @@ use App\Models\Product;
 use App\Http\Resources\Product\ProductCollection;
 use App\Models\Category;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
-
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 class ProductControllerTest extends TestCase
 {
     use DatabaseMigrations;
     private $product;
+    private $token;
     public function setUp(): void
     {
         parent::setUp();
         $this->withExceptionHandling();
         $this->seed();
         $this->product = Product::first();
+        $this->withoutMiddleware([Authenticate::class]);
     }
 
     public function test_it_should_be_able_to_list_all_products()

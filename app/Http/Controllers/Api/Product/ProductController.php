@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
@@ -9,6 +9,7 @@ use App\Http\Resources\Product\ProductResource;
 use App\Services\ProductService;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use App\Models\Product;
+
 class ProductController extends Controller
 {
     private $service;
