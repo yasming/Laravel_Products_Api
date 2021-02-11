@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Traits\FormatResponseFormRequest;
 class ProductRequest extends FormRequest
 {
+    use FormatResponseFormRequest;
 
     public function authorize()
     {
