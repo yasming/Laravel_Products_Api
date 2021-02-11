@@ -49,14 +49,16 @@ php artisan jwt:generate
 php artisan migrate --seed
 ```
 
+```
+Default user:
+
+email: email@example.com
+password: password
+```
+
 ### How to run project's tests
 
 ```
 php artisan test
 ```
 
-### Default user for auth
-```
-email: email@example.com
-password: password
-```
