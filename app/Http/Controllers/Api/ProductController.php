@@ -28,9 +28,19 @@ class ProductController extends Controller
         return response()->json(new ProductResource($this->service->create($request)), HttpResponse::HTTP_CREATED);
     }
 
+    public function update(ProductRequest $request, Product $product)
+    {
+        if($this->service->update($product, $request)) {
+            return response()->json(new ProductResource($product),HttpResponse::HTTP_OK);
+        }
+        return response()->json(['message' => __('messages.error_updating_record')], HttpResponse::HTTP_INTERNAL_SERVER_ERROR); 
+    }
+
     public function destroy(Product $product)
     {
-        $this->service->delete($product);
-        return response()->json([], HttpResponse::HTTP_NO_CONTENT);
+        if($this->service->delete($product)) {
+            return response()->json([], HttpResponse::HTTP_NO_CONTENT);
+        };
+        return response()->json(['message' => __('messages.error_deleting_record')], HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

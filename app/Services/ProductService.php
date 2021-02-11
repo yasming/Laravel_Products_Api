@@ -25,6 +25,11 @@ class ProductService
         return $this->repository->create($request->all());
     }
 
+    public function update(Product $model, ProductRequest $request) : bool
+    {
+        return $this->repository->update($model, $request->all());
+    }
+
     public function delete(Product $product) : bool
     {
         return $this->repository->delete($product);

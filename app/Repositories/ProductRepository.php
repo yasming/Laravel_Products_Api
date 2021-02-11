@@ -24,6 +24,11 @@ class ProductRepository
         return $this->model->create($data);
     }
 
+    public function update(Product $model, array $data) : bool
+    {
+        return $model->update($data);
+    }
+
     public function delete(Product $product) : bool
     {
         return $product->delete();
