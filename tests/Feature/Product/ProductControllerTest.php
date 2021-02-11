@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Product;
 use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Category;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
@@ -31,6 +32,27 @@ class ProductControllerTest extends TestCase
 
         $this->assertEquals($allProducts->response()->getData(true)['data'],$response['products']);
         $this->assertEquals(count($response['products']), Product::all()->count());
+    }
+
+    public function test_it_should_be_able_to_list_one_product()
+    {
+        $response        = $this->get(route('api.products.show', $this->product->id))
+                                ->assertStatus(HttpResponse::HTTP_OK);
+        $category = $this->product->category()->first();
+        $response->assertExactJson([
+            'name'        => $this->product->name,
+            'price'       => $this->product->price,
+            'category_id' => $category->id,
+            'category'    => [ 
+                'id'         => $category->id,
+                'name'       => $category->name,
+                'created_at' => $category->created_at,
+                'updated_at' => $category->updated_at,
+            ],
+            'created_at'  => $this->product->created_at,
+            'updated_at'  => $this->product->updated_at,
+            'id'          => $this->product->id
+        ]);
     }
 
     public function test_it_should_be_able_to_detele_a_product()

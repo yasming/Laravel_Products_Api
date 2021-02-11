@@ -24,6 +24,11 @@ class ProductController extends Controller
         return response()->json(['products' => new ProductCollection($this->service->getAll())], HttpResponse::HTTP_OK);
     }
 
+    public function show(Product $product)
+    {
+        return response()->json(new ProductResource($product->load('category')), HttpResponse::HTTP_OK);
+    }
+
     public function store(ProductRequest $request)
     {
         return response()->json(new ProductResource($this->service->create($request)), HttpResponse::HTTP_CREATED);
